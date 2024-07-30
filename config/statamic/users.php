@@ -1,182 +1,176 @@
 <?php
 
 return [
+	/*
+	|--------------------------------------------------------------------------
+	| User Repository
+	|--------------------------------------------------------------------------
+	|
+	| Statamic uses a repository to get users, roles, groups, and their
+	| relationships from specified storage locations. The file driver
+	| gets it from disk, while the eloquent driver gets from a DB.
+	|
+	| Supported: "file", "eloquent"
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | User Repository
-    |--------------------------------------------------------------------------
-    |
-    | Statamic uses a repository to get users, roles, groups, and their
-    | relationships from specified storage locations. The file driver
-    | gets it from disk, while the eloquent driver gets from a DB.
-    |
-    | Supported: "file", "eloquent"
-    |
-    */
+	'repository' => 'eloquent',
 
-    'repository' => 'eloquent',
+	'repositories' => [
+		'file' => [
+			'driver' => 'file',
+			'paths'  => [
+				'roles'  => resource_path('users/roles.yaml'),
+				'groups' => resource_path('users/groups.yaml'),
+			],
+		],
 
-    'repositories' => [
+		'eloquent' => [
+			'driver' => 'eloquent',
+		],
+	],
 
-        'file' => [
-            'driver' => 'file',
-            'paths' => [
-                'roles' => resource_path('users/roles.yaml'),
-                'groups' => resource_path('users/groups.yaml'),
-            ],
-        ],
+	/*
+	|--------------------------------------------------------------------------
+	| Avatars
+	|--------------------------------------------------------------------------
+	|
+	| User avatars are initials by default, with custom options for services
+	| like Gravatar.com.
+	|
+	| Supported: "initials", "gravatar", or a custom class name.
+	|
+	*/
 
-        'eloquent' => [
-            'driver' => 'eloquent',
-        ],
+	'avatars' => 'initials',
 
-    ],
+	/*
+	|--------------------------------------------------------------------------
+	| New User Roles
+	|--------------------------------------------------------------------------
+	|
+	| When registering new users through the user:register_form tag, these
+	| roles will automatically be applied to your newly created users.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Avatars
-    |--------------------------------------------------------------------------
-    |
-    | User avatars are initials by default, with custom options for services
-    | like Gravatar.com.
-    |
-    | Supported: "initials", "gravatar", or a custom class name.
-    |
-    */
+	'new_user_roles' => [
+	],
 
-    'avatars' => 'initials',
+	/*
+	|--------------------------------------------------------------------------
+	| New User Groups
+	|--------------------------------------------------------------------------
+	|
+	| When registering new users through the user:register_form tag, these
+	| groups will automatically be applied to your newly created users.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | New User Roles
-    |--------------------------------------------------------------------------
-    |
-    | When registering new users through the user:register_form tag, these
-    | roles will automatically be applied to your newly created users.
-    |
-    */
+	'new_user_groups' => [
+	],
 
-    'new_user_roles' => [
-        //
-    ],
+	/*
+	|--------------------------------------------------------------------------
+	| Registration form honeypot field
+	|--------------------------------------------------------------------------
+	|
+	| When registering new users through the user:register_form tag,
+	| specify the field to act as a honeypot for bots
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | New User Groups
-    |--------------------------------------------------------------------------
-    |
-    | When registering new users through the user:register_form tag, these
-    | groups will automatically be applied to your newly created users.
-    |
-    */
+	'registration_form_honeypot_field' => null,
 
-    'new_user_groups' => [
-        //
-    ],
+	/*
+	|--------------------------------------------------------------------------
+	| User Wizard Invitation Email
+	|--------------------------------------------------------------------------
+	|
+	| When creating new users through the wizard in the control panel,
+	| you may choose whether to be able to send an invitation email.
+	| Setting to true will give the user the option. But setting
+	| it to false will disable the invitation option entirely.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Registration form honeypot field
-    |--------------------------------------------------------------------------
-    |
-    | When registering new users through the user:register_form tag,
-    | specify the field to act as a honeypot for bots
-    |
-    */
+	'wizard_invitation' => true,
 
-    'registration_form_honeypot_field' => null,
+	/*
+	|--------------------------------------------------------------------------
+	| Password Brokers
+	|--------------------------------------------------------------------------
+	|
+	| When resetting passwords, Statamic uses an appropriate password broker.
+	| Here you may define which broker should be used for each situation.
+	| You may want a longer expiry for user activations, for example.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | User Wizard Invitation Email
-    |--------------------------------------------------------------------------
-    |
-    | When creating new users through the wizard in the control panel,
-    | you may choose whether to be able to send an invitation email.
-    | Setting to true will give the user the option. But setting
-    | it to false will disable the invitation option entirely.
-    |
-    */
+	'passwords' => [
+		'resets'      => config('auth.defaults.passwords'),
+		'activations' => config('auth.defaults.passwords'),
+	],
 
-    'wizard_invitation' => true,
+	/*
+	|--------------------------------------------------------------------------
+	| Database
+	|--------------------------------------------------------------------------
+	|
+	| Here you may configure the database connection and its table names.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Password Brokers
-    |--------------------------------------------------------------------------
-    |
-    | When resetting passwords, Statamic uses an appropriate password broker.
-    | Here you may define which broker should be used for each situation.
-    | You may want a longer expiry for user activations, for example.
-    |
-    */
+	'database' => config('database.default'),
 
-    'passwords' => [
-        'resets' => config('auth.defaults.passwords'),
-        'activations' => config('auth.defaults.passwords'),
-    ],
+	'tables' => [
+		'users'      => 'users',
+		'role_user'  => 'role_user',
+		'roles'      => false,
+		'group_user' => 'group_user',
+		'groups'     => false,
+	],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Database
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the database connection and its table names.
-    |
-    */
+	/*
+	|--------------------------------------------------------------------------
+	| Authentication Guards
+	|--------------------------------------------------------------------------
+	|
+	| By default, Statamic will use the `web` authentication guard. However,
+	| if you want to run Statamic alongside the default Laravel auth
+	| guard, you can configure that for your cp and/or frontend.
+	|
+	*/
 
-    'database' => config('database.default'),
+	'guards' => [
+		'cp'  => 'web',
+		'web' => 'web',
+	],
 
-    'tables' => [
-        'users' => 'users',
-        'role_user' => 'role_user',
-        'roles' => false,
-        'group_user' => 'group_user',
-        'groups' => false,
-    ],
+	/*
+	|--------------------------------------------------------------------------
+	| Impersonation
+	|--------------------------------------------------------------------------
+	|
+	| Here you can configure if impersonation is available, and what URL to
+	| redirect to after impersonation begins.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Guards
-    |--------------------------------------------------------------------------
-    |
-    | By default, Statamic will use the `web` authentication guard. However,
-    | if you want to run Statamic alongside the default Laravel auth
-    | guard, you can configure that for your cp and/or frontend.
-    |
-    */
+	'impersonate' => [
+		'enabled'  => env('STATAMIC_IMPERSONATE_ENABLED', true),
+		'redirect' => env('STATAMIC_IMPERSONATE_REDIRECT', null),
+	],
 
-    'guards' => [
-        'cp' => 'web',
-        'web' => 'web',
-    ],
+	/*
+	|--------------------------------------------------------------------------
+	| Default Sorting
+	|--------------------------------------------------------------------------
+	|
+	| Here you may configure the default sort behavior for user listings.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Impersonation
-    |--------------------------------------------------------------------------
-    |
-    | Here you can configure if impersonation is available, and what URL to
-    | redirect to after impersonation begins.
-    |
-    */
-
-    'impersonate' => [
-        'enabled' => env('STATAMIC_IMPERSONATE_ENABLED', true),
-        'redirect' => env('STATAMIC_IMPERSONATE_REDIRECT', null),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default Sorting
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the default sort behavior for user listings.
-    |
-    */
-
-    'sort_field' => 'email',
-    'sort_direction' => 'asc',
-
+	'sort_field'     => 'email',
+	'sort_direction' => 'asc',
 ];

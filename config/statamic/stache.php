@@ -3,141 +3,136 @@
 use Statamic\Stache\Stores;
 
 return [
+	/*
+	|--------------------------------------------------------------------------
+	| File Watcher
+	|--------------------------------------------------------------------------
+	|
+	| File changes will be noticed and data will be updated accordingly.
+	| This can be disabled to reduce overhead, but you will need to
+	| either update the cache manually or use the Control Panel.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | File Watcher
-    |--------------------------------------------------------------------------
-    |
-    | File changes will be noticed and data will be updated accordingly.
-    | This can be disabled to reduce overhead, but you will need to
-    | either update the cache manually or use the Control Panel.
-    |
-    */
+	'watcher' => env('STATAMIC_STACHE_WATCHER', 'auto'),
 
-    'watcher' => env('STATAMIC_STACHE_WATCHER', 'auto'),
+	/*
+	|--------------------------------------------------------------------------
+	| Cache Store
+	|--------------------------------------------------------------------------
+	|
+	| Here you may configure which Cache Store the Stache uses.
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Cache Store
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure which Cache Store the Stache uses.
-    |
-    */
+	'cache_store' => null,
 
-    'cache_store' => null,
+	/*
+	|--------------------------------------------------------------------------
+	| Stores
+	|--------------------------------------------------------------------------
+	|
+	| Here you may configure the stores that are used inside the Stache.
+	|
+	| https://statamic.dev/stache#stores
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Stores
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the stores that are used inside the Stache.
-    |
-    | https://statamic.dev/stache#stores
-    |
-    */
+	'stores' => [
+		'taxonomies' => [
+			'class'     => Stores\TaxonomiesStore::class,
+			'directory' => base_path('content/taxonomies'),
+		],
 
-    'stores' => [
+		'terms' => [
+			'class'     => Stores\TermsStore::class,
+			'directory' => base_path('content/taxonomies'),
+		],
 
-        'taxonomies' => [
-            'class' => Stores\TaxonomiesStore::class,
-            'directory' => base_path('content/taxonomies'),
-        ],
+		'collections' => [
+			'class'     => Stores\CollectionsStore::class,
+			'directory' => base_path('content/collections'),
+		],
 
-        'terms' => [
-            'class' => Stores\TermsStore::class,
-            'directory' => base_path('content/taxonomies'),
-        ],
+		'entries' => [
+			'class'     => Stores\EntriesStore::class,
+			'directory' => base_path('content/collections'),
+		],
 
-        'collections' => [
-            'class' => Stores\CollectionsStore::class,
-            'directory' => base_path('content/collections'),
-        ],
+		'navigation' => [
+			'class'     => Stores\NavigationStore::class,
+			'directory' => base_path('content/navigation'),
+		],
 
-        'entries' => [
-            'class' => Stores\EntriesStore::class,
-            'directory' => base_path('content/collections'),
-        ],
+		'collection-trees' => [
+			'class'     => Stores\CollectionTreeStore::class,
+			'directory' => base_path('content/trees/collections'),
+		],
 
-        'navigation' => [
-            'class' => Stores\NavigationStore::class,
-            'directory' => base_path('content/navigation'),
-        ],
+		'nav-trees' => [
+			'class'     => Stores\NavTreeStore::class,
+			'directory' => base_path('content/trees/navigation'),
+		],
 
-        'collection-trees' => [
-            'class' => Stores\CollectionTreeStore::class,
-            'directory' => base_path('content/trees/collections'),
-        ],
+		'globals' => [
+			'class'     => Stores\GlobalsStore::class,
+			'directory' => base_path('content/globals'),
+		],
 
-        'nav-trees' => [
-            'class' => Stores\NavTreeStore::class,
-            'directory' => base_path('content/trees/navigation'),
-        ],
+		'global-variables' => [
+			'class'     => Stores\GlobalVariablesStore::class,
+			'directory' => base_path('content/globals'),
+		],
 
-        'globals' => [
-            'class' => Stores\GlobalsStore::class,
-            'directory' => base_path('content/globals'),
-        ],
+		'asset-containers' => [
+			'class'     => Stores\AssetContainersStore::class,
+			'directory' => base_path('content/assets'),
+		],
 
-        'global-variables' => [
-            'class' => Stores\GlobalVariablesStore::class,
-            'directory' => base_path('content/globals'),
-        ],
+		'assets' => [
+			'class' => Stores\AssetsStore::class,
+		],
 
-        'asset-containers' => [
-            'class' => Stores\AssetContainersStore::class,
-            'directory' => base_path('content/assets'),
-        ],
+		'users' => [
+			'class'     => Stores\UsersStore::class,
+			'directory' => base_path('users'),
+		],
 
-        'assets' => [
-            'class' => Stores\AssetsStore::class,
-        ],
+		'form-submissions' => [
+			'class'     => Stores\SubmissionsStore::class,
+			'directory' => storage_path('forms'),
+		],
+	],
 
-        'users' => [
-            'class' => Stores\UsersStore::class,
-            'directory' => base_path('users'),
-        ],
+	/*
+	|--------------------------------------------------------------------------
+	| Indexes
+	|--------------------------------------------------------------------------
+	|
+	| Here you may define any additional indexes that will be inherited
+	| by each store in the Stache. You may also define indexes on a
+	| per-store level by adding an "indexes" key to its config.
+	|
+	*/
 
-        'form-submissions' => [
-            'class' => Stores\SubmissionsStore::class,
-            'directory' => storage_path('forms'),
-        ],
+	'indexes' => [
+	],
 
-    ],
+	/*
+	|--------------------------------------------------------------------------
+	| Locking
+	|--------------------------------------------------------------------------
+	|
+	| In order to prevent concurrent requests from updating the Stache at the
+	| same time and wasting resources, it will be locked so that subsequent
+	| requests will have to wait until the first one has been completed.
+	|
+	| https://statamic.dev/stache#locks
+	|
+	*/
 
-    /*
-    |--------------------------------------------------------------------------
-    | Indexes
-    |--------------------------------------------------------------------------
-    |
-    | Here you may define any additional indexes that will be inherited
-    | by each store in the Stache. You may also define indexes on a
-    | per-store level by adding an "indexes" key to its config.
-    |
-    */
-
-    'indexes' => [
-        //
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Locking
-    |--------------------------------------------------------------------------
-    |
-    | In order to prevent concurrent requests from updating the Stache at the
-    | same time and wasting resources, it will be locked so that subsequent
-    | requests will have to wait until the first one has been completed.
-    |
-    | https://statamic.dev/stache#locks
-    |
-    */
-
-    'lock' => [
-        'enabled' => true,
-        'timeout' => 30,
-    ],
-
+	'lock' => [
+		'enabled' => true,
+		'timeout' => 30,
+	],
 ];
