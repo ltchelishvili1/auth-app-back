@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Controllers\Controller;
 use App\Services\Registration\Interfaces\RegistrationInterface;
+use App\Http\Resources\CustomerResource;
 
 class RegisterController extends Controller
 {
@@ -29,6 +30,8 @@ class RegisterController extends Controller
 			return response()->json(['message' => $customerCreation->message], $customerCreation->status);
 		}
 
-		return response()->json(['customer' => $customerCreation->customer], $customerCreation->status);
+		$customer = new CustomerResource($customerCreation->customer);
+
+		return response()->json(['customer' => $customer], $customerCreation->status);
 	}
 }
