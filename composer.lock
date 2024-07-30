@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81f05747d1070cd8feaf7dbd12db693e",
+    "content-hash": "44f007b6edf8a5ae629895b7b90203bb",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -4609,6 +4609,58 @@
                 }
             ],
             "time": "2024-07-29T14:19:18+00:00"
+        },
+        {
+            "name": "statamic/eloquent-driver",
+            "version": "v4.11.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statamic/eloquent-driver.git",
+                "reference": "6aae378a64750183e1ba473fd019a2a879287c6b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statamic/eloquent-driver/zipball/6aae378a64750183e1ba473fd019a2a879287c6b",
+                "reference": "6aae378a64750183e1ba473fd019a2a879287c6b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "statamic/cms": "^5.17"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.8",
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^8.0 || ^9.0.2",
+                "phpunit/phpunit": "^9.4 || ^10.0 || ^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "statamic": {
+                    "name": "Eloquent Driver",
+                    "description": "Allows you to store Statamic data in a database."
+                },
+                "laravel": {
+                    "providers": [
+                        "Statamic\\Eloquent\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Statamic\\Eloquent\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Allows you to store Statamic data in a database.",
+            "support": {
+                "issues": "https://github.com/statamic/eloquent-driver/issues",
+                "source": "https://github.com/statamic/eloquent-driver/tree/v4.11.1"
+            },
+            "time": "2024-07-24T10:31:21+00:00"
         },
         {
             "name": "statamic/stringy",
