@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\Registration\UserCreationService;
+use App\Services\Registration\Interfaces\RegistrationInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function register(): void
 	{
+		$this->app->bind(RegistrationInterface::class, UserCreationService::class);
 	}
 
 	/**
