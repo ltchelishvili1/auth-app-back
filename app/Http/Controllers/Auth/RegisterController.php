@@ -9,13 +9,13 @@ use App\Http\Resources\CustomerResource;
 
 class RegisterController extends Controller
 {
-	protected RegistrationInterface $formSubmissionService;
+	protected RegistrationInterface $userCreationService;
 
 	protected array $properties;
 
-	public function __construct(RegistrationInterface $formSubmissionService, array $properties = [])
+	public function __construct(RegistrationInterface $userCreationService, array $properties = [])
 	{
-		$this->formSubmissionService = $formSubmissionService;
+		$this->userCreationService = $userCreationService;
 
 		$this->properties = $properties;
 	}
@@ -24,7 +24,7 @@ class RegisterController extends Controller
 	{
 		$validated = $request->validated();
 
-		$customerCreation = $this->formSubmissionService->createCustomer($validated);
+		$customerCreation = $this->userCreationService->createCustomer($validated);
 
 		if (!$customerCreation->success) {
 			return response()->json(['message' => $customerCreation->message], $customerCreation->status);
