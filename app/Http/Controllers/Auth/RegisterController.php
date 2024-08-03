@@ -6,18 +6,16 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Controllers\Controller;
 use App\Services\Registration\Interfaces\RegistrationInterface;
 use App\Http\Resources\CustomerResource;
+use App\Jobs\SendVerificationEmail;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
 	protected RegistrationInterface $userCreationService;
 
-	protected array $properties;
-
-	public function __construct(RegistrationInterface $userCreationService, array $properties = [])
+	public function __construct(RegistrationInterface $userCreationService)
 	{
 		$this->userCreationService = $userCreationService;
-
-		$this->properties = $properties;
 	}
 
 	public function register(RegisterRequest $request)
@@ -30,8 +28,11 @@ class RegisterController extends Controller
 			return response()->json(['message' => $customerCreation->message], $customerCreation->status);
 		}
 
-		$customer = new CustomerResource($customerCreation->customer);
+		$customer = $customerCreation->customer;
 
-		return response()->json(['customer' => $customer], $customerCreation->status);
+		event(new Registered($customerCreation->customer)); // comment this if you want to use jobs
+		//SendVerificationEmail::dispatch($customer);  =>  // uncomment this if you want to use jobs
+
+		return response()->json(['customer' =>  new CustomerResource($customerCreation->customer)], $customerCreation->status);
 	}
 }
