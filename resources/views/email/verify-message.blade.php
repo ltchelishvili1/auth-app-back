@@ -72,9 +72,8 @@
             color: #999;
             border-top: 1px solid #eee;
         }
-        .footer a {
-            color: #007bff;
-            text-decoration: none;
+        .url {
+            word-break: break-all;
         }
         @media only screen and (max-width: 600px) {
             .container {
@@ -104,8 +103,7 @@
             <p>Thank you for joining {{ $appName }}! We are thrilled to have you on board. Please verify your email address by clicking the button below:</p>
             <a href="{{ $url }}" class="button">Verify Email</a>
             <p>If the button above doesn't work, copy and paste the following link into your browser:</p>
-            <p><a href="{{ $url }}">{{ $url }}</a></p>
-            <p>If you have any issues, feel free to contact our support team at support@{{ $appName }}.com.</p>
+            <a class='url' href="{{ $url }}">{{ $url }}</a>
         </div>
         <div class="footer">
             <p>&copy; {{ date('Y') }} {{ $appName }}. All rights reserved.</p>
